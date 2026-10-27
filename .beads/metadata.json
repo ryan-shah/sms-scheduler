@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "sms",
+  "project_id": "5ff13138-d493-4d24-bb72-c003f42d2048"
+}
