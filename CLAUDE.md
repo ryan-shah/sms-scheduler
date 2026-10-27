@@ -30,7 +30,7 @@ bd close <id>            # Complete work
 
 ## Build & Test
 
-> Phase 0 (`sms-<p0>.5`) makes every command here real and verified. Until then this is the
+> Phase 0 (`sms-odd.5`) makes every command here real and verified. Until then this is the
 > intended set.
 
 ```bash
