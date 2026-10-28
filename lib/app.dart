@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Root widget. The theme and go_router shell arrive in sms-odd.3.
-class App extends StatelessWidget {
+import 'ui/routing/routing.dart';
+import 'ui/theme/app_theme.dart';
+
+/// Root widget: Material 3 theme (system light/dark) + go_router shell.
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
       title: 'SMS Scheduler',
-      home: Scaffold(body: Center(child: Text('SMS Scheduler'))),
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      themeMode: ThemeMode.system,
+      routerConfig: ref.watch(appRouterProvider),
     );
   }
 }
