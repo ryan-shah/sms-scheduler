@@ -39,6 +39,9 @@ dart run build_runner build --delete-conflicting-outputs
 flutter analyze                          # CI uses --no-fatal-infos
 flutter test --timeout 30s               # ALWAYS pass --timeout
 flutter test --timeout 30s test/app_test.dart
+(cd packages/sms_sender && flutter test --timeout 30s)   # plugin Dart tests
+# Kotlin unit tests (needs JAVA_HOME, e.g. Android Studio jbr; cold run ~1-2 min):
+(cd android && ./gradlew :sms_sender:testDebugUnitTest)
 flutter build apk --debug                # needs Android SDK (WITH_ANDROID_SDK=1 bash tool/setup_cloud.sh)
 flutter build apk --release              # debug-signed unless android/key.properties exists
 bash tool/ci_version.sh                  # version CI will stamp: name=<MAJOR.MINOR>.<commits>

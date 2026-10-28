@@ -28,11 +28,16 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  android_alarm_manager_plus: 5.1.2
   flutter:
     sdk: flutter
   flutter_riverpod: 3.4.3
   go_router: 18.1.1
+  path_provider: 2.1.6
+  permission_handler: 12.0.1
   riverpod_annotation: 4.0.7
+  sms_sender:
+    path: packages/sms_sender
 
 dev_dependencies:
   flutter_test:

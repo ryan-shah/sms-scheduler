@@ -1,7 +1,6 @@
 # Phase 1 Implementation Plan — Platform spike: background SMS on a real device
 
-> **Draft for user review.** Nothing is dispatched until the user approves this plan
-> (ORCHESTRATION.md step 5).
+> **Approved by the user on 2026-10-28.** Implementation is under way on branch `phase_1`.
 
 **Epic:** `sms-4mv`. Children `.1`–`.9` are created at phase start and chained with
 `bd dep add`; run `bd show <id>` for details.
