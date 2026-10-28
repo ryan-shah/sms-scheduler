@@ -26,8 +26,11 @@
   atomic job writes, one-line log appends, corrupt input tolerated): analyze clean, tests
   57/57, debug APK built (sub-agent run).
 
+- `sms-4mv.7` `SpikeRunner` (`lib/data/spike/spike_runner.dart`), wired into
+  `alarmCallback`: analyze clean, tests 65/65.
+
 ## In progress
-- `sms-4mv.7` SpikeRunner + alarm callback wiring — dispatched to a sub-agent.
+- `sms-4mv.8` Diagnostics screen + 7-tap reveal + `/diagnostics` route — dispatched to a sub-agent.
 
 ## Next steps
 1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
@@ -49,3 +52,8 @@
 ## Decisions made this phase
 - 2026-10-28: sms_sender channel `com.rsh.sms_sender`, method `send`; a send exception
   returns `failed` with plugin error code -1000.
+- 2026-10-28: the first soak send is one interval out (`start = now + interval`); send k fires
+  at `start + k*interval`. A fire that is late past later slots skips forward to the next
+  future slot; missed slots are not sent. `onAlarm` saves the job and arms the next alarm
+  before sending, so a crash mid-send can drop a log row but never double-sends.
+  Body: `SMS Scheduler test #k/N scheduled HH:mmZ`.
