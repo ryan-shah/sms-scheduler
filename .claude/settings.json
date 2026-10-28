@@ -4,6 +4,10 @@
       {
         "hooks": [
           {
+            "command": "if [ \"$CLAUDE_CODE_REMOTE\" = \"true\" ]; then bash tool/setup_cloud.sh >&2; fi; true",
+            "type": "command"
+          },
+          {
             "command": "bd prime --hook-json",
             "type": "command"
           }
