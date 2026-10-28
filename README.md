@@ -14,8 +14,8 @@ built: [`designs/ORCHESTRATION.md`](designs/ORCHESTRATION.md).
 
 | Phase | Scope | bd epic | Status |
 |---|---|---|---|
-| 0 | Scaffold, tooling, CI, cloud bootstrap | `sms-odd` | In progress |
-| 1 | Platform spike: background SMS proven on a real device | `sms-4mv` | Planned |
+| 0 | Scaffold, tooling, CI, cloud bootstrap | `sms-odd` | Done ([handoff](designs/PHASE_0_HANDOFF.md)) |
+| 1 | Platform spike: background SMS proven on a real device | `sms-4mv` | Plan in review ([plan](designs/PHASE_1_PLAN.md)) |
 | 2 | Domain & data layer: recurrence engine, Drift schema, repositories | `sms-age` | Planned |
 | 3 | Dispatcher: single-alarm scheduling, missed/rate/pause policies | `sms-9s4` | Planned |
 | 4 | Schedules UX: list, editor, recurrence builder, previews | `sms-jjc` | Planned |
