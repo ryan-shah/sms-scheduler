@@ -11,8 +11,11 @@
 - `sms-4mv.2` manifest permissions and alarm components, plus `android_manifest_test.dart`:
   analyze clean, tests 21/21, debug APK built (sub-agent run).
 
+- `sms-4mv.3` `SmsGateway`/`PluginSmsGateway`, `Clock`/`SystemClock`, providers, and the
+  fakes in `test/fakes/`: analyze clean, tests 29/29.
+
 ## In progress
-- `sms-4mv.3` SmsGateway + Clock + fakes — dispatched to a sub-agent.
+- `sms-4mv.4` AlarmScheduler + android_alarm_manager_plus — dispatched to a sub-agent.
 
 ## Next steps
 1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
