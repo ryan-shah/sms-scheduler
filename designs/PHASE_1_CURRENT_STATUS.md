@@ -14,8 +14,12 @@
 - `sms-4mv.3` `SmsGateway`/`PluginSmsGateway`, `Clock`/`SystemClock`, providers, and the
   fakes in `test/fakes/`: analyze clean, tests 29/29.
 
+- `sms-4mv.4` `AlarmScheduler` + `AndroidAlarmManagerScheduler` (android_alarm_manager_plus
+  5.1.2), `alarmCallback` stub in `lib/data/alarms/alarm_callback.dart`, `initialize()` in
+  `main()`: analyze clean, tests 32/32, debug APK built (sub-agent run).
+
 ## In progress
-- `sms-4mv.4` AlarmScheduler + android_alarm_manager_plus — dispatched to a sub-agent.
+- `sms-4mv.5` PermissionService + fake + providers — dispatched to a sub-agent.
 
 ## Next steps
 1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
@@ -26,8 +30,8 @@
 
 ## Known issues & gotchas
 - Gradle needs `JAVA_HOME` (Windows: `C:\Program Files\Android\Android Studio\jbr`).
-- The alarm component class names in the manifest are not yet checked against the
-  android_alarm_manager_plus source; `sms-4mv.4` must verify them.
+- The alarm component class names in the manifest were checked against the
+  android_alarm_manager_plus 5.1.2 source. Its own manifest declares none of them.
 - CI doesn't run the package's Dart or Kotlin tests yet (`sms-78o`).
 
 ## Decisions made this phase
