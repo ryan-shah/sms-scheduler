@@ -22,8 +22,12 @@
   `permissionStatusProvider` family, `FakePermissionService`: analyze clean, tests 49/49,
   debug APK built (sub-agent run).
 
+- `sms-4mv.6` `SpikeJob`/`SpikeLogEntry` models and `SpikeStore` (path_provider 2.1.6;
+  atomic job writes, one-line log appends, corrupt input tolerated): analyze clean, tests
+  57/57, debug APK built (sub-agent run).
+
 ## In progress
-- `sms-4mv.6` spike store (`spike_job.json` + `spike_log.jsonl`) — dispatched to a sub-agent.
+- `sms-4mv.7` SpikeRunner + alarm callback wiring — dispatched to a sub-agent.
 
 ## Next steps
 1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
@@ -38,6 +42,8 @@
   android_alarm_manager_plus 5.1.2 source. Its own manifest declares none of them.
 - permission_handler 13.x requires compileSdk 37 and fails locally ("android-37" target not
   found), so it is pinned at 12.0.1. Upgrade tracked as `sms-5rv`.
+- path_provider_android 2.3.x is JNI-based. Reaching it from the alarm's background engine
+  is first proven on device at gate 1 (`sms-4mv.9`).
 - CI doesn't run the package's Dart or Kotlin tests yet (`sms-78o`).
 
 ## Decisions made this phase
