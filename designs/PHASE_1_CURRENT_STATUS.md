@@ -18,8 +18,12 @@
   5.1.2), `alarmCallback` stub in `lib/data/alarms/alarm_callback.dart`, `initialize()` in
   `main()`: analyze clean, tests 32/32, debug APK built (sub-agent run).
 
+- `sms-4mv.5` `PermissionService`/`PermissionHandlerService` (permission_handler 12.0.1),
+  `permissionStatusProvider` family, `FakePermissionService`: analyze clean, tests 49/49,
+  debug APK built (sub-agent run).
+
 ## In progress
-- `sms-4mv.5` PermissionService + fake + providers — dispatched to a sub-agent.
+- `sms-4mv.6` spike store (`spike_job.json` + `spike_log.jsonl`) — dispatched to a sub-agent.
 
 ## Next steps
 1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
@@ -32,6 +36,8 @@
 - Gradle needs `JAVA_HOME` (Windows: `C:\Program Files\Android\Android Studio\jbr`).
 - The alarm component class names in the manifest were checked against the
   android_alarm_manager_plus 5.1.2 source. Its own manifest declares none of them.
+- permission_handler 13.x requires compileSdk 37 and fails locally ("android-37" target not
+  found), so it is pinned at 12.0.1. Upgrade tracked as `sms-5rv`.
 - CI doesn't run the package's Dart or Kotlin tests yet (`sms-78o`).
 
 ## Decisions made this phase
