@@ -8,8 +8,11 @@
 - `sms-4mv.1` sms_sender plugin (`4a677aa`): root analyze clean, root tests 10/10, package
   tests 4/4, `./gradlew :sms_sender:testDebugUnitTest` green (5 JUnit tests).
 
+- `sms-4mv.2` manifest permissions and alarm components, plus `android_manifest_test.dart`:
+  analyze clean, tests 21/21, debug APK built (sub-agent run).
+
 ## In progress
-- `sms-4mv.2` manifest + `android_manifest_test.dart` — dispatched to a sub-agent.
+- `sms-4mv.3` SmsGateway + Clock + fakes — dispatched to a sub-agent.
 
 ## Next steps
 1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
@@ -20,6 +23,8 @@
 
 ## Known issues & gotchas
 - Gradle needs `JAVA_HOME` (Windows: `C:\Program Files\Android\Android Studio\jbr`).
+- The alarm component class names in the manifest are not yet checked against the
+  android_alarm_manager_plus source; `sms-4mv.4` must verify them.
 - CI doesn't run the package's Dart or Kotlin tests yet (`sms-78o`).
 
 ## Decisions made this phase
