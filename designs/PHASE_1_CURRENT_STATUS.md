@@ -35,6 +35,12 @@
   tests 72/72; package tests 4/4; `:sms_sender:testDebugUnitTest` green;
   `flutter build apk --debug` built.
 
+- `sms-4mv.10` (bug found during gate setup): the Diagnostics exact-alarm row always showed
+  denied on API 33+ because permission_handler only checks SCHEDULE_EXACT_ALARM, which is
+  capped at maxSdk 32. It now reads `AlarmManager.canScheduleExactAlarms()` through the
+  UI-only MainActivity channel `com.rsh.smsscheduler/system`. Tests 74/74; debug APK built
+  (sub-agent run). The on-device check is pending.
+
 ## In progress
 - `sms-4mv.9` **manual device gate (user)** — waiting on the user's results.
 
@@ -60,6 +66,8 @@
 ## Decisions made this phase
 - 2026-10-28: sms_sender channel `com.rsh.sms_sender`, method `send`; a send exception
   returns `failed` with plugin error code -1000.
+- 2026-10-28: the exact-alarm status bypasses permission_handler and uses a MainActivity
+  channel. It is UI-only, so CLAUDE.md's background-engine rule doesn't apply.
 - 2026-10-28: the first soak send is one interval out (`start = now + interval`); send k fires
   at `start + k*interval`. A fire that is late past later slots skips forward to the next
   future slot; missed slots are not sent. `onAlarm` saves the job and arms the next alarm

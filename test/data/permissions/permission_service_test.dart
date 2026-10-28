@@ -31,6 +31,22 @@ class _ScriptedApi implements PermissionApi {
   }
 }
 
+class _FakeExactAlarmApi implements ExactAlarmApi {
+  bool can = false;
+  int openCalls = 0;
+  bool grantOnOpen = false;
+
+  @override
+  Future<bool> canScheduleExactAlarms() async => can;
+
+  @override
+  Future<bool> openExactAlarmSettings() async {
+    openCalls++;
+    if (grantOnOpen) can = true;
+    return true;
+  }
+}
+
 void main() {
   group('mapPermissionStatus', () {
     const expected = {
@@ -63,7 +79,9 @@ void main() {
       expect(targets.keys.toSet(), AppPermission.values.toSet());
     });
 
-    for (final e in targets.entries) {
+    for (final e in targets.entries.where(
+      (e) => e.key != AppPermission.exactAlarm,
+    )) {
       test('${e.key.name}: status and request use ${e.value}', () async {
         final api = _ScriptedApi()..statusResult = PermissionStatus.denied;
         final service = PermissionHandlerService(api);
@@ -79,6 +97,60 @@ void main() {
         expect(api.requestCalls, [e.value]);
       });
     }
+
+    group('exactAlarm', () {
+      late _ScriptedApi api;
+      late _FakeExactAlarmApi exact;
+      late PermissionHandlerService service;
+      setUp(() {
+        api = _ScriptedApi();
+        exact = _FakeExactAlarmApi();
+        service = PermissionHandlerService(api, exact);
+      });
+
+      test(
+        'status true -> granted, false -> denied; no permission_handler',
+        () async {
+          exact.can = true;
+          expect(
+            await service.status(AppPermission.exactAlarm),
+            AppPermissionStatus.granted,
+          );
+          exact.can = false;
+          expect(
+            await service.status(AppPermission.exactAlarm),
+            AppPermissionStatus.denied,
+          );
+          expect(api.statusCalls, isEmpty);
+        },
+      );
+
+      test('request when granted does not open settings', () async {
+        exact.can = true;
+        expect(
+          await service.request(AppPermission.exactAlarm),
+          AppPermissionStatus.granted,
+        );
+        expect(exact.openCalls, 0);
+        expect(api.requestCalls, isEmpty);
+      });
+
+      test('request when denied opens settings and re-reads status', () async {
+        expect(
+          await service.request(AppPermission.exactAlarm),
+          AppPermissionStatus.denied,
+        );
+        expect(exact.openCalls, 1);
+
+        exact.grantOnOpen = true;
+        expect(
+          await service.request(AppPermission.exactAlarm),
+          AppPermissionStatus.granted,
+        );
+        expect(exact.openCalls, 2);
+        expect(api.requestCalls, isEmpty);
+      });
+    });
 
     test('openSettings delegates', () async {
       final api = _ScriptedApi();
