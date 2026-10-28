@@ -29,15 +29,23 @@
 - `sms-4mv.7` `SpikeRunner` (`lib/data/spike/spike_runner.dart`), wired into
   `alarmCallback`: analyze clean, tests 65/65.
 
+- `sms-4mv.8` Diagnostics screen (`lib/features/diagnostics/`), the `/diagnostics` route, and
+  the 7-tap About-version reveal (`developerModeProvider`, session-only): tests 72/72.
+- Full automated gate run by the orchestrator, 2026-10-28: `flutter analyze` clean; root
+  tests 72/72; package tests 4/4; `:sms_sender:testDebugUnitTest` green;
+  `flutter build apk --debug` built.
+
 ## In progress
-- `sms-4mv.8` Diagnostics screen + 7-tap reveal + `/diagnostics` route — dispatched to a sub-agent.
+- `sms-4mv.9` **manual device gate (user)** — waiting on the user's results.
 
 ## Next steps
-1. `bd ready` → dispatch the next `sms-4mv.N` child with the ORCHESTRATION.md prompt template.
-2. After each child: re-run `flutter analyze` and `flutter test --timeout 30s`, commit
-   `<bd-id>: <summary>` with `.beads/issues.jsonl`, push `phase_1`, update this file.
-3. After `.8`: run the full gate set from PHASE_1_PLAN.md (incl. `flutter build apk --debug`
-   and the sms_sender Gradle unit test), then hand `.9` (manual device gate) to the user.
+1. Wait for the user's `sms-4mv.9` results (checklist in PHASE_1_PLAN.md "Manual gate").
+   Install the PR #2 CI APK (prerelease `pr-2`) or `build/app/outputs/flutter-apk/app-debug.apk`.
+2. If criterion 2 or 4 fails: stop and escalate (alarm-strategy rethink, e.g. a foreground
+   service), per PHASE_1_PLAN.md.
+3. If all pass: record the results verbatim in `designs/PHASE_1_HANDOFF.md` (template in
+   `designs/templates/`), update the README phase table, delete this file, close `.9` and
+   `sms-4mv`, push, and mark PR #2 ready.
 
 ## Known issues & gotchas
 - Gradle needs `JAVA_HOME` (Windows: `C:\Program Files\Android\Android Studio\jbr`).
