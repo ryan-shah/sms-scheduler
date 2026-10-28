@@ -30,8 +30,7 @@ bd close <id>            # Complete work
 
 ## Build & Test
 
-> Phase 0 (`sms-odd.5`) makes every command here real and verified. Until then this is the
-> intended set.
+All commands below were run and verified on Windows 11 (Git Bash) with Flutter 3.44.4.
 
 ```bash
 bash tool/setup_cloud.sh                 # cloud sessions: install pinned Flutter SDK (idempotent)
@@ -39,11 +38,22 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 flutter analyze                          # CI uses --no-fatal-infos
 flutter test --timeout 30s               # ALWAYS pass --timeout
-flutter test --timeout 30s test/path/to/file_test.dart
+flutter test --timeout 30s test/app_test.dart
 flutter build apk --debug                # needs Android SDK (WITH_ANDROID_SDK=1 bash tool/setup_cloud.sh)
-flutter build apk --release
+flutter build apk --release              # debug-signed unless android/key.properties exists
 bash tool/ci_version.sh                  # version CI will stamp: name=<MAJOR.MINOR>.<commits>
 ```
+
+Platform caveats:
+
+- `setup_cloud.sh` only installs Flutter/Android SDKs on Linux; it no-ops (exit 0) when the
+  pinned Flutter 3.44.4 is already on `PATH`, as on a configured dev machine.
+- `build_runner` currently has nothing to generate ("wrote 0 outputs", ~1.5 min cold) until
+  Drift/Riverpod codegen arrives in Phase 2.
+- A release build without `android/key.properties` falls back to debug signing (fine locally).
+  Cold release build takes ~2 min; debug ~45 s.
+- `ci_version.sh` prints `name=1.0.<commit count>` locally because `pubspec.yaml` is
+  `1.0.0+1`; CI needs a full clone (`fetch-depth: 0`) for the real count.
 
 ### Test-run rules (inherited from DejaPoo)
 

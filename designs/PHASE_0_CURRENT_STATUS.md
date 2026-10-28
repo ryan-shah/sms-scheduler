@@ -1,18 +1,19 @@
 # Phase 0 Current Status
 
 **Phase:** 0 — Scaffold, tooling & CI (bd epic: `sms-odd`)
-**Last updated:** 2026-10-27 23:15
+**Last updated:** 2026-10-27 23:40
 
 ## Done (with verification evidence)
 - `sms-odd.1`: `tool/setup_cloud.sh` (pins Flutter 3.44.4) and a SessionStart hook gated on `CLAUDE_CODE_REMOTE`. Verified: `bash -n` ok; second run 1.3 s no-op. Linux download/Android SDK paths untested locally.
 - `sms-odd.2`: Flutter project (`com.rsh.smsscheduler`, minSdk 26), pinned deps (flutter_riverpod 3.4.3, riverpod_annotation 4.0.7, go_router 18.1.1, riverpod_generator 4.0.9, build_runner 2.15.1, flutter_lints 6.0.0), DejaPoo lints. Verified: analyze clean, 5 tests pass, `flutter build apk --debug` ok.
 - `sms-odd.3`: M3 seed theme (light/dark), go_router StatefulShellRoute (Schedules/History/Settings) via `appRouterProvider`, empty states, disabled FAB, About shows `appVersion`. Verified: analyze clean, 10 tests pass.
 - `sms-odd.4`: `tool/ci_version.sh` + test/android/claude/claude-code-review workflows (Flutter 3.44.4). Verified: actionlint clean, ci_version prints name=/code=, 10 tests pass. Optional secrets: CLAUDE_CODE_OAUTH_TOKEN; KEYSTORE_BASE64/STORE_PASSWORD/KEY_PASSWORD/KEY_ALIAS (all skip gracefully). Follow-up `sms-3gj` (PR prerelease cleanup).
+- `sms-odd.5`: README (phase table), CLAUDE.md Build & Test verified (all 9 commands incl. debug + release APK builds), `docs/INSTALL_ANDROID.md` stub.
 - Phase 0 children `sms-odd.1`–`.6` created and chained (`bd list --parent sms-odd`); export
   committed and pushed on branch `phase_0`.
 
 ## In progress
-- `sms-odd.5` docs (README, CLAUDE.md Build & Test, INSTALL_ANDROID stub) — dispatched to a sub-agent.
+- `sms-odd.6` manual gate (user): install the CI PR APK and confirm it opens to the shell.
 
 ## Next steps
 1. `git checkout phase_0 && git pull`; `bd ready` shows the next unblocked child.
